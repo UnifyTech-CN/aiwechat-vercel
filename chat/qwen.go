@@ -117,6 +117,7 @@ func (chat *QwenChat) chat(userId string, message string) (res string) {
 	resp, err = client.Do(req)
 	if err != nil {
 		res = fmt.Sprintf("client.Do failed,err:%v", err.Error())
+		return
 	}
 	defer resp.Body.Close()
 

@@ -36,7 +36,7 @@ func (s *GeminiChat) getModel(userId string) string {
 	if model, err := db.GetModel(userId, config.Bot_Type_Gemini); err == nil && model != "" {
 		return model
 	}
-	return "gemini-2.0-flash"
+	return config.GetGeminiModel()
 }
 
 func (s *GeminiChat) chat(userId, msg string) string {

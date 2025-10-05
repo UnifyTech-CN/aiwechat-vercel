@@ -67,7 +67,7 @@ func GetSparkConfig() (cfg *SparkConfig, err error) {
 		HostUrl:            sparkUrl,
 		AppId:              GetSparkAppId(),
 		ApiSecret:          GetSparkAppSecret(),
-		ApiKey:             GetSparApiKey(),
+		ApiKey:             GetSparkApiKey(),
 		SparkDomainVersion: sparkDomainVersion,
 	}
 
@@ -107,7 +107,7 @@ func GetSparkAppSecret() string {
 	return os.Getenv(Spark_App_Secret_Key)
 }
 
-func GetSparApiKey() string {
+func GetSparkApiKey() string {
 	return os.Getenv(Spark_ApiKey_Key)
 }
 

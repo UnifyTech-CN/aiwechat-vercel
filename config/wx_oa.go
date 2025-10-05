@@ -12,6 +12,7 @@ const (
 	Wx_Token_key           = "WX_TOKEN"
 	Wx_App_Id_key          = "WX_APP_ID"
 	Wx_App_Secret_key      = "WX_APP_SECRET"
+	Wx_Encoding_AES_Key    = "WX_ENCODING_AES_KEY"
 	Wx_Subscribe_Reply_key = "WX_SUBSCRIBE_REPLY"
 	Wx_Help_Reply_key      = "WX_HELP_REPLY"
 
@@ -58,6 +59,10 @@ func GetWxAppId() string {
 }
 func GetWxAppSecret() string {
 	return os.Getenv(Wx_App_Secret_key)
+}
+
+func GetWxEncodingAESKey() string {
+	return os.Getenv(Wx_Encoding_AES_Key)
 }
 func GetWxSubscribeReply() string {
 	subscribeMsg := os.Getenv(Wx_Subscribe_Reply_key)

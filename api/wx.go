@@ -16,16 +16,18 @@ func Wx(rw http.ResponseWriter, req *http.Request) {
 	wc := wechat.NewWechat()
 	memory := cache.NewMemory()
 	cfg := &offConfig.Config{
-		AppID:     "",
-		AppSecret: "",
-		Token:     config.GetWxToken(),
-		Cache:     memory,
+		AppID:          config.GetWxAppId(),
+		AppSecret:      config.GetWxAppSecret(),
+		Token:          config.GetWxToken(),
+		EncodingAESKey: config.GetWxEncodingAESKey(),
+		Cache:          memory,
 	}
 	officialAccount := wc.GetOfficialAccount(cfg)
 
 	// 传入request和responseWriter
 	server := officialAccount.GetServer(req, rw)
-	server.SkipValidate(true)
+	// SkipValidate 设置为false，以启用消息验证
+	server.SkipValidate(false)
 	//设置接收消息的处理方法
 	server.SetMessageHandler(func(msg *message.MixMessage) *message.Reply {
 		//回复消息：演示回复用户发送的消息

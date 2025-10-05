@@ -100,11 +100,7 @@ func CheckAllBotConfig() (botType string, checkRes map[string]bool) {
 
 func CheckGptConfig() error {
 	gptToken := GetGptToken()
-	token := GetWxToken()
 	botType := GetBotType()
-	if token == "" {
-		return errors.New("请配置微信TOKEN")
-	}
 	if gptToken == "" && botType == Bot_Type_Gpt {
 		return errors.New("请配置ChatGPTToken")
 	}
