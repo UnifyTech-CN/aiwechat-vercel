@@ -108,16 +108,20 @@ func (r *RedisChatDb) SetMsgList(botType string, userId string, msgList []Msg) {
 }
 
 func GetChatDb() (ChatDb, error) {
+	// 优先使用KV_URL，如果不存在则使用REDIS_URL（Vercel的环境变量名）
 	kvUrl := os.Getenv("KV_URL")
 	if kvUrl == "" {
-		return nil, errors.New("请配置KV_URL")
-	} else {
-		db, err := NewRedisChatDb(kvUrl)
-		if err != nil {
-			return nil, err
+		kvUrl = os.Getenv("REDIS_URL")
+		if kvUrl == "" {
+			return nil, errors.New("请配置KV_URL或REDIS_URL")
 		}
-		return db, nil
 	}
+	
+	db, err := NewRedisChatDb(kvUrl)
+	if err != nil {
+		return nil, err
+	}
+	return db, nil
 }
 
 func GetValueWithMemory(key string) (string, bool) {
