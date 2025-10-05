@@ -9,8 +9,15 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/joho/godotenv"
 	"github.com/pwh-pwh/aiwechat-vercel/db"
 )
+
+// 初始化时自动加载.env文件
+func init() {
+	// 尝试加载.env文件，但不报错（线上环境可能不使用.env文件）
+	_ = godotenv.Load("conf/.env")
+}
 
 const (
 	GPT  = "gpt"
@@ -100,7 +107,11 @@ func CheckAllBotConfig() (botType string, checkRes map[string]bool) {
 
 func CheckGptConfig() error {
 	gptToken := GetGptToken()
+	token := GetWxToken()
 	botType := GetBotType()
+	if token == "" {
+		return errors.New("请配置微信TOKEN")
+	}
 	if gptToken == "" && botType == Bot_Type_Gpt {
 		return errors.New("请配置ChatGPTToken")
 	}
