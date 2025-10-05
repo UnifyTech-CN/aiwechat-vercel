@@ -28,6 +28,12 @@ func Wx(rw http.ResponseWriter, req *http.Request) {
 	server := officialAccount.GetServer(req, rw)
 	// SkipValidate 设置为false，以启用消息验证
 	server.SkipValidate(false)
+	
+	// 检查是否是验证请求
+	if req.Method == "GET" {
+		// 这是微信服务器的验证请求，Serve方法会自动处理验证
+		fmt.Println("处理微信验证请求")
+	}
 	//设置接收消息的处理方法
 	server.SetMessageHandler(func(msg *message.MixMessage) *message.Reply {
 		//回复消息：演示回复用户发送的消息
